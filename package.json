@@ -1,0 +1,50 @@
+{
+  "name": "nodejs-sandbox",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "concurrently \"yarn build-server\" \"yarn build-client\" && concurrently \"yarn start-server\" \"yarn start-client\"",
+    "build-client": "NODE_ENV=development parcel build --target client",
+    "build-server": "rm -rf ./.parcel-cache && NODE_ENV=development parcel build --target server --no-optimize",
+    "start-client": "NODE_ENV=development parcel --target client",
+    "start-server": "PORT=9000 NODE_ENV=development node dist/server/server.js"
+  },
+  "targets": {
+    "client": {
+      "source": "src/client/index.jsx",
+      "distDir": "dist/client"
+    },
+    "server": {
+      "source": "src/server/server.js",
+      "distDir": "dist/server",
+      "context": "node",
+      "isLibrary": false,
+      "includeNodeModules": true,
+      "outputFormat": "commonjs",
+      "engines": {
+        "node": ">=18"
+      }
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codesandbox-app/static-template.git"
+  },
+  "keywords": [],
+  "author": "Ives van Hoorne",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/codesandbox-app/static-template/issues"
+  },
+  "homepage": "https://github.com/codesandbox-app/static-template#readme",
+  "dependencies": {
+    "express": "4.19.2",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "parcel": "2.12.0",
+    "process": "^0.11.10"
+  }
+}
